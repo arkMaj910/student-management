@@ -55,6 +55,17 @@ public class Student {
         this.department = department;
     }
 
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", age=" + age +
+                ", department='" + department + '\'' +
+                '}';
+    }
+
     public static class Builder {
         int id;
         String name;

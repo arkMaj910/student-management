@@ -37,6 +37,7 @@ public class StudentDAO {
                         .id(rs.getInt("id"))
                         .name(rs.getString("name"))
                         .email(rs.getString("email"))
+                        .age(rs.getInt("age"))
                         .department(rs.getString("department"))
                         .build());
             }
