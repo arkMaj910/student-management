@@ -26,6 +26,8 @@ public class Main {
             case 1 -> {
                 System.out.println("Enter name: ");
                 String name = in.nextLine();
+                System.out.println("Enter admission no: ");
+                String admNo = in.nextLine();
                 System.out.println("Enter email: ");
                 String email = in.nextLine();
                 System.out.println("Enter age: ");
@@ -38,6 +40,7 @@ public class Main {
                         .email(email)
                         .age(age)
                         .department(dept)
+                        .admissionNo(admNo)
                         .build();
 
                 dao.addStudent(student);

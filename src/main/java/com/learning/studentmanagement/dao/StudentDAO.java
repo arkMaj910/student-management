@@ -15,9 +15,10 @@ public class StudentDAO {
         try (Connection con = DBConnection.getConnection();
              PreparedStatement stmt = con.prepareStatement(query)) {
             stmt.setString(1, s.getName());
-            stmt.setString(2, s.getEmail());
-            stmt.setInt(3, s.getAge());
-            stmt.setString(4, s.getDepartment());
+            stmt.setString(2, s.getAdmissionNo());
+            stmt.setString(3, s.getEmail());
+            stmt.setInt(4, s.getAge());
+            stmt.setString(5, s.getDepartment());
             stmt.executeUpdate();
 
         } catch (SQLException e) {
