@@ -62,15 +62,19 @@ public class StudentDAO {
              PreparedStatement stmt = con.prepareStatement(query)) {
             stmt.setString(1, name);
             ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                list.add(new Student.Builder()
-                        .name(rs.getString("name"))
-                        .id(rs.getInt("id"))
-                        .admissionNo(rs.getString("admission_no"))
-                        .email(rs.getString("email"))
-                        .age(rs.getInt("age"))
-                        .department(rs.getString("department"))
-                        .build());
+            if (!rs.next()) {
+                System.out.println("No student with name " + name);
+            } else {
+                do {
+                    list.add(new Student.Builder()
+                            .name(rs.getString("name"))
+                            .id(rs.getInt("id"))
+                            .admissionNo(rs.getString("admission_no"))
+                            .email(rs.getString("email"))
+                            .age(rs.getInt("age"))
+                            .department(rs.getString("department"))
+                            .build());
+                } while (rs.next());
             }
 
         } catch (SQLException e) {
