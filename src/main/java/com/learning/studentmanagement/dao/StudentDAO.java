@@ -10,7 +10,7 @@ import java.util.List;
 public class StudentDAO {
     public void addStudent(Student s) {
         String query =
-                "INSERT INTO students(NAME, EMAIL, AGE, DEPARTMENT) VALUES (?, ?, ?, ?)";
+                "INSERT INTO students(name, admission_no, email, age, department) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement stmt = con.prepareStatement(query)) {
@@ -44,6 +44,35 @@ public class StudentDAO {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+
+        return list;
+    }
+
+    public List<Student> searchByName(String name) {
+        String query = """
+                SELECT id, name, admission_no, email, age, department
+                   FROM students
+                   WHERE name = ?""";
+
+        List<Student> list = new ArrayList<>();
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(new Student.Builder()
+                        .name(rs.getString("name"))
+                        .id(rs.getInt("id"))
+                        .admissionNo(rs.getString("admission_no"))
+                        .email(rs.getString("email"))
+                        .age(rs.getInt("age"))
+                        .department(rs.getString("department"))
+                        .build());
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return list;

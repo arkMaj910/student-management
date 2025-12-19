@@ -14,8 +14,9 @@ public class Main {
         System.out.println("""
                 Press :\s
                     1. Insert Record
-                    2.See all records
-                    3.Exit""");
+                    2. See all records
+                    3. Search by name
+                    4. Exit""");
 
         System.out.println("Enter choice : ");
         int choice = in.nextInt();
@@ -50,7 +51,16 @@ public class Main {
                 }
             }
 
-            case 3 -> System.exit(0);
+            case 3 -> {
+                System.out.print("Enter name: ");
+                String name = in.nextLine();
+                List<Student> list = dao.searchByName(name);
+                for (Student stud : list) {
+                    System.out.println(stud);
+                }
+            }
+
+            default -> System.exit(0);
         }
 
         in.close();
