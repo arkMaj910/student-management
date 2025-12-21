@@ -6,6 +6,7 @@ import com.learning.studentmanagement.util.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class StudentDAO {
     public void addStudent(Student s) {
@@ -82,5 +83,36 @@ public class StudentDAO {
         }
 
         return list;
+    }
+
+    public Optional<Student> searchByAdmNo(String admNo) {
+        String sql = """
+                SELECT id, name, admission_no, age, email, department
+                FROM students
+                WHERE admission_no = ?""";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, admNo);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                return Optional.empty();
+            } else {
+                Student s = new Student.Builder()
+                        .id(rs.getInt(1))
+                        .name(rs.getString(2))
+                        .admissionNo(rs.getString(3))
+                        .age(rs.getInt(4))
+                        .email(rs.getString(5))
+                        .department(rs.getString(6))
+                        .build();
+
+                return Optional.of(s);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -4,6 +4,7 @@ import com.learning.studentmanagement.dao.StudentDAO;
 import com.learning.studentmanagement.model.Student;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
@@ -16,7 +17,8 @@ public class Main {
                     1. Insert Record
                     2. See all records
                     3. Search by name
-                    4. Exit""");
+                    4. Search by Admission Number
+                    5. Exit""");
 
         System.out.println("Enter choice : ");
         int choice = in.nextInt();
@@ -63,7 +65,20 @@ public class Main {
                 }
             }
 
-            default -> System.exit(0);
+            case 4 -> {
+                System.out.print("Enter admission number: ");
+                String admNo = in.nextLine().trim();
+                Optional<Student> optionalStudent = dao.searchByAdmNo(admNo);
+                if (optionalStudent.isEmpty()) {
+                    System.out.println("No such student exists");
+                } else {
+                    System.out.println(optionalStudent.get());
+                }
+            }
+
+            case 5 -> System.exit(0);
+
+            default -> System.out.println("Invalid input");
         }
 
         in.close();
