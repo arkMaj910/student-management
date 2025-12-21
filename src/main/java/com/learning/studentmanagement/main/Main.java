@@ -25,16 +25,16 @@ public class Main {
         switch (choice) {
             case 1 -> {
                 System.out.println("Enter name: ");
-                String name = in.nextLine();
+                String name = in.nextLine().trim();
                 System.out.println("Enter admission no: ");
-                String admNo = in.nextLine();
+                String admNo = in.nextLine().trim();
                 System.out.println("Enter email: ");
-                String email = in.nextLine();
+                String email = in.nextLine().trim();
                 System.out.println("Enter age: ");
                 int age = in.nextInt();
                 in.nextLine();
                 System.out.println("Enter department: ");
-                String dept = in.nextLine();
+                String dept = in.nextLine().trim();
                 Student student = new Student.Builder()
                         .name(name)
                         .email(email)
@@ -56,7 +56,7 @@ public class Main {
 
             case 3 -> {
                 System.out.print("Enter name: ");
-                String name = in.nextLine();
+                String name = in.nextLine().trim();
                 List<Student> list = dao.searchByName(name);
                 for (Student stud : list) {
                     System.out.println(stud);
